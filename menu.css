@@ -1,0 +1,76 @@
+/* Container for each section */
+.menu-section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #fff;
+    border: 2px solid #ef9c7e; /* Match theme color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title */
+.menu-section h2 {
+    font-size: 1.8rem;
+    color: #ef9c7e;
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Common price for dips and drinks */
+.common-price {
+    background-color: #ffe4b5;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual menu items */
+.menu-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fff6f0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #ef9c7e;
+}
+
+.menu-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Section header for dips and drinks */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.8rem;
+    color: #ef9c7e;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ddd; /* Optional: Add a separator line */
+}
+
+.section-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.section-price {
+    font-weight: bold;
+    color: #ef9c7e;
+}

@@ -1,170 +1,10 @@
-/*body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-header, footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #ff5722;
-    color: white;
-    width: 100%;
-}
-
-main {
-    padding: 20px;
-    width: 100%;
-    max-width: 600px;
-}
-
-section {
-    display: none;
-}
-
-section.active {
-    display: block;
-}
-
-button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
-    background-color: #ff5722;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #e64a19;
-}*/
-
-
-
-/* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding: 20px;
-    background-color: #f7f7f7;
-    color: #333;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    color: #d35400;
-}
-
-header p {
-    font-size: 1.2rem;
-}
-
-.menu {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.menu-item {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    width: 250px;
-}
-
-.menu-item img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.menu-item h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.menu-item p {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-
-.add-to-cart {
-    background: #d35400;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.add-to-cart:hover {
-    background: #e67e22;
-}
-
-.cart {
-    margin-top: 30px;
-}
-
-.cart h2 {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-#cart-items {
-    list-style: none;
-    padding: 0;
-}
-
-#place-order {
-    display: block;
-    margin: 20px auto;
-    background: #27ae60;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-#place-order:hover {
-    background: #2ecc71;
-}
-
-footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 0.8rem;
-    color: #777;
-}*/
-
-
 /* General styles */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #ffe4b5;
+    background-color: #ffe4b5; 
     color: #333;
 }
 
@@ -172,51 +12,27 @@ body {
 .header {
     background-color: #ef9c7e;
     color: #fff;
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center text inside the header */
+    display: flex; /* Add display: flex to the header */
+    justify-content: space-evenly; /* Space between header and button */
+    align-items: center; 
 }
 
 .header h1 {
-    margin: 0;
+    text-align: center;
+    margin-left: 300px;
     font-size: 2rem;
     text-transform: uppercase; /* Optional: make text uppercase */
     letter-spacing: 2px; /* Optional: add some spacing between letters */
 }
 
-
-
 .navbar {
-    display: flex;
-    justify-content: space-between; /* Space out the items */
-    align-items: center; /* Center items vertically */
     background-color: #ef9c7e; /* Match header color */
     color: #fff;
     padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
-
-.navbar .menu-button {
-    margin-left: auto; /* Push the button to the far right */
-    margin-right: 10px; /* Adds a gap between the button and the right edge of the navbar */
-}
-
-.navbar a {
-    text-decoration: none;
-    color: #fff;
-    margin: 0 15px;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar a:hover {
-    color: #ffd700;
-}
-
-
 
 
 .menu-button {
@@ -225,11 +41,9 @@ body {
     border: orange;
     padding: 10px 15px;
     font-size: 1rem;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-left: auto; /* Pushes the button to the extreme right */
-    margin-right: 100px; /* Adds a gap between the button and the right edge of the navbar */
 }
 
 .menu-button:hover {
