@@ -1,0 +1,91 @@
+ /* Container for the entire page */
+.container {
+    max-width: 390px; /* Limit width to 390px */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px; /* Add consistent spacing */
+    margin: 0 auto; /* Center the container horizontally */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    background-color: #f8f8f8; /* Optional background for better contrast */
+}
+
+/* Image */
+.logo {
+    width: 80%; /* Responsive width, adjusts to container */
+    height: auto;
+    max-width: 200px; /* Prevent overly large images */
+}
+
+/* Text Header */
+.lastpage-header {
+    margin-top: 20px; /* Space between image and text */
+    font-size: 1.5rem; /* Scaled font size */
+    color: black;
+    text-align: center;
+}
+h3{
+    font-size: 1rem; /* Scaled font size */ 
+    font-weight: lighter;
+}
+/* Time Estimate */
+.lastpage-time-estimate {
+    font-size: 1.2rem; /* Slightly smaller than header */
+    color: black;
+    text-align: center;
+    margin-top: 10px; /* Add some spacing */
+}
+
+/* Button Container */
+.lastpage-button-container {
+    margin-top: 30px; /* Space between text and buttons */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Buttons */
+.lastpage-buttons {
+    background-color: #353131;
+    border: none;
+    border-radius: 8px; /* Rounded buttons for modern look */
+    padding: 10px 20px;
+    margin: 10px 0; /* Vertical spacing between buttons */
+    font-size: 1rem; /* Scaled font size */
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for emphasis */
+    width: 80%; /* Buttons adapt to container */
+    max-width: 250px; /* Prevent overly large buttons */
+    text-align: center;
+    color:white; /* Consistent text color */
+}
+
+.lastpage-buttons:hover {
+    background-color: #595252; /* Subtle hover effect */
+}
+
+/* Responsive Design for smaller devices */
+@media (max-width: 390px) {
+    .container {
+        padding: 10px; /* Reduce padding for small screens */
+    }
+
+    .logo {
+        width: 90%; /* Slightly larger image width */
+    }
+
+    .lastpage-header {
+        font-size: 1.2rem; /* Smaller font size for narrow screens */
+    }
+
+    .lastpage-time-estimate {
+        font-size: 1rem; /* Adjust text size */
+    }
+
+    .lastpage-buttons {
+        font-size: 0.9rem; /* Scale down button text */
+        padding: 8px 16px; /* Adjust button padding */
+    }
+}

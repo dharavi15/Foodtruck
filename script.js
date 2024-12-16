@@ -1,22 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
     const keysApiUrl = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/keys';
     const menuApiUrl = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu';
-    const outputElement = document.getElementById('output');
-    const menuButton = document.querySelector('.menu-button');
-    const cartButton = document.querySelector('.cart-button');
-    const cartSection = document.getElementById('cart');
-    const cartItemsContainer = document.getElementById('cart-items-container');
-    const cartTotalElement = document.getElementById('cart-total');
+    
+    const wontonSvgs = [
+        document.getElementById('menu-svg1'),
+        document.getElementById('menu-svg2'),
+        document.getElementById('menu-svg3'),
+        document.getElementById('menu-svg4'),
+        document.getElementById('menu-svg5')
+    ];
+
+    const dipSvg = document.getElementById('dip-item');
+    const smallDipRects = [
+        document.getElementById('dip-item-2'),
+        document.getElementById('dip-item-3'),
+        document.getElementById('dip-item-4'),
+        document.getElementById('dip-item-5'),
+        document.getElementById('dip-item-6'),
+        document.getElementById('dip-item-7'),
+    ];
+
+    const drinkSvg = document.getElementById('drink-item');
+    const smallDrinkRects = [
+        document.getElementById('drink-item-2'),
+        document.getElementById('drink-item-3'),
+        document.getElementById('drink-item-4'),
+        document.getElementById('drink-item-5'),
+        document.getElementById('drink-item-6'),
+        document.getElementById('drink-item-7'),
+    ];
+
+    
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || [];;
     const cartCountElement = document.getElementById('cart-count');
 
-    let cart = []; // Store cart items
+    const errorDialog = document.getElementById('errorDialog');
+    const errorMessage = document.getElementById('errorMessage');
+    const closeDialogButton = document.getElementById('closeDialogButton');
 
-    window.showCart = showCart;
+    closeDialogButton.addEventListener('click', () => errorDialog.close());
 
-    /**
-     * Fetch the menu from the API.
-     */
-    function fetchMenu() {
+    document.getElementById('navigateToCartPage').addEventListener('click', function() {
+
+
+        // Redirect to index.html to start a new session
+        window.location.href = 'cart.html';  // Adjust the path to index.html if needed
+    });
+    function showDialog(message) {
+        errorMessage.textContent = message;
+        errorDialog.showModal();
+    }
+    
+    function fetchAndDisplayWontons() {
         fetch(keysApiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -28,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(apiKeyData => {
                 const apiKey = apiKeyData.apiKey;
+                sessionStorage.setItem('apiKey', apiKey);
                 return fetch(menuApiUrl, {
                     headers: { 'x-zocom': apiKey },
                 });
@@ -37,159 +73,168 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(menuData => {
-                displayMenu(menuData.items);
+                const wontons = menuData.items.filter(item => item.type === 'wonton');
+                const dips = menuData.items.filter(item => item.type === 'dip');
+                const drinks = menuData.items.filter(item => item.type === 'drink');
+
+                // Assign each wonton to an SVG
+                wontons.forEach((wonton, index) => {
+                    if (wontonSvgs[index]) {
+                        updateSvgWithWonton(wontonSvgs[index], wonton,'wonton');
+                        updateMainDipRectangle(dipSvg, dips);
+                        updateMainDrinkRectangle(drinkSvg, drinks);
+                    }
+                });
+
+                dips.forEach((dip, index) => {
+                    if (smallDipRects[index]) {
+                        updateSmallDipRectangle(smallDipRects[index], dip,'dip');
+                    }
+                });
+                drinks.forEach((drink, index) => {
+                    if (smallDrinkRects[index]) {
+                        updateSmallDrinkRectangle(smallDrinkRects[index], drink,'drink');
+                    }
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
-                outputElement.textContent = 'Failed to load menu. Please try again later.';
+                showDialog('Failed to load menu. Please try again later.');
             });
     }
 
     /**
-     * Display the menu grouped by categories.
-     * @param {Array} items - The menu items.
+     * Updates an SVG with wonton data.
+     * @param {SVGElement} svgElement 
+     * @param {Object} wonton 
      */
-    function displayMenu(items) {
-        outputElement.innerHTML = '';
+    function updateSvgWithWonton(svgElement, item, itemType) {
+        // Add name and price
+        const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textElement.setAttribute('x', '20');
+        textElement.setAttribute('y', '40');
+        textElement.setAttribute('font-size', '24');
+        textElement.setAttribute('fill', '#FFFFFF');
+        textElement.textContent = `${item.name}....................${item.price}kr`;
+        svgElement.appendChild(textElement);
 
-        // Group items by type
-        const groupedItems = {
-            wonton: [],
-            dip: [],
-            drink: [],
-        };
+        // Add ingredients
+        const ingredientsElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        ingredientsElement.setAttribute('x', '20');
+        ingredientsElement.setAttribute('y', '60');
+        ingredientsElement.setAttribute('font-size', '12');
+        ingredientsElement.setAttribute('fill', '#CCCCCC');
+        ingredientsElement.textContent = `(${item.ingredients.join(', ')})`;
+        svgElement.appendChild(ingredientsElement);
 
-        items.forEach(item => {
-            if (groupedItems[item.type]) {
-                groupedItems[item.type].push(item);
-            }
-        });
-
-        // Function to create menu sections
-        function createSection(title, items) {
-            const section = document.createElement('div');
-            section.classList.add('menu-section');
-            section.innerHTML = `<h2>${title}</h2>`;
-
-            items.forEach(item => {
-                const menuItem = document.createElement('div');
-                menuItem.classList.add('menu-item');
-                menuItem.innerHTML = `
-                    <h3>${item.name}</h3>
-                    <p>${item.ingredients ? item.ingredients.join(', ') : ''}</p>
-                    <p><strong>Price:</strong> $${item.price}</p>
-                `;
-                menuItem.addEventListener('click', () => addToCart(item));
-                menuItem.style.cursor = 'pointer'; // Make items clickable
-                section.appendChild(menuItem);
-            });
-
-            return section;
-        }
-
-        // Append menu sections to output
-        outputElement.appendChild(createSection('Wontons', groupedItems.wonton));
-        outputElement.appendChild(createSection('Dips', groupedItems.dip));
-        outputElement.appendChild(createSection('Drinks', groupedItems.drink));
+        svgElement.style.cursor = 'pointer';
+        svgElement.addEventListener('click', () => addToCart(item));
     }
 
     /**
-     * Add an item to the cart.
-     * @param {Object} item - The item to add to the cart.
+     * @param {SVGElement} svgElement 
+     * @param {Array} dips 
      */
-    function addToCart(item) {
-        const existingItem = cart.find(cartItem => cartItem.name === item.name);
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ ...item, quantity: 1 });
-        }
-        updateCartCount();
+    function updateMainDipRectangle(svgElement, dips) {
+        const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textElement.setAttribute('x', '20');
+        textElement.setAttribute('y', '40');
+        textElement.setAttribute('font-size', '14');
+        textElement.setAttribute('fill', '#FFFFFF');
+        textElement.textContent = `DIPSÅS.................................................................19kr`;
+        svgElement.appendChild(textElement);
+      
+       
     }
 
     /**
-     * Update the cart count badge.
+     * @param {SVGElement} rectElement 
+     * @param {Object} dip 
      */
-    function updateCartCount() {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountElement.textContent = totalItems; // Update cart count
+    function updateSmallDipRectangle(rectElement, item, itemType) {
+        const parentSvg = rectElement.closest('svg');
+        const rectX = parseInt(rectElement.getAttribute('x'), 10) || 0;
+        const rectY = parseInt(rectElement.getAttribute('y'), 10) || 0;
+
+        const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textElement.setAttribute('x', rectX + 6); 
+        textElement.setAttribute('y', rectY + 20); 
+        textElement.setAttribute('font-size', '12');
+        textElement.setAttribute('fill', '#FFFFFF');
+        textElement.textContent = item.name;
+
+        parentSvg.appendChild(textElement);
+
+        rectElement.style.cursor = 'pointer';
+        rectElement.addEventListener('click', () => addToCart(item));
     }
 
     /**
-     * Display the cart with items, quantity controls, and total.
+     * @param {SVGElement} svgElement 
+     * @param {Array} drinks 
      */
-    function showCart() {
-        console.log('Cart contents:', cart);
-        cartItemsContainer.innerHTML = ''; // Clear previous cart display
+    function updateMainDrinkRectangle(svgElement, drinks) {
+        const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textElement.setAttribute('x', '20');
+        textElement.setAttribute('y', '40');
+        textElement.setAttribute('font-size', '14');
+        textElement.setAttribute('fill', '#FFFFFF');
+        textElement.textContent = `DRICKA................................................................19kr`;
+        svgElement.appendChild(textElement);
 
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p>Your cart is empty!</p>';
-            cartTotalElement.textContent = '';
-            return;
-        }
-    
-        let total = 0;
+        
 
-     cart.forEach(item => {
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('cart-item');
-            cartItem.innerHTML = `
-                <span>${item.name} - $${item.price}</span>
-                <div>
-                    <button class="decrease-button">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="increase-button">+</button>
-                </div>
-                <span class="item-total">$${(item.price * item.quantity).toFixed(2)}</span>
-            `;
-
-            const decreaseButton = cartItem.querySelector('.decrease-button');
-            const increaseButton = cartItem.querySelector('.increase-button');
-
-            decreaseButton.addEventListener('click', () => {
-                if (item.quantity > 1) {
-                    item.quantity -= 1;
-                } else {
-                    cart = cart.filter(cartItem => cartItem.name !== item.name);
-                }
-                updateCartDisplay();
-            });
-
-            increaseButton.addEventListener('click', () => {
-                item.quantity += 1;
-                updateCartDisplay();
-            });
-
-            cartItemsContainer.appendChild(cartItem);
-            total += item.price * item.quantity;
-        });
-
-        cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
-        cartSection.classList.remove('hidden'); // Show cart section
-        cartSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-  
-    function updateCartDisplay() {
-        updateCartCount();
-        showCart();
+    /**
+     * @param {SVGElement} rectElement 
+     * @param {Object} drink 
+     */
+    function updateSmallDrinkRectangle(rectElement,  item, itemType) {
+        const parentSvg = rectElement.closest('svg');
+        const rectX = parseInt(rectElement.getAttribute('x'), 10) || 0;
+        const rectY = parseInt(rectElement.getAttribute('y'), 10) || 0;
+
+        const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textElement.setAttribute('x', rectX + 5); 
+        textElement.setAttribute('y', rectY + 20); 
+        textElement.setAttribute('font-size', '12');
+        textElement.setAttribute('fill', '#FFFFFF');
+        textElement.textContent = item.name;
+
+        parentSvg.appendChild(textElement);
+
+        rectElement.style.cursor = 'pointer';
+        rectElement.addEventListener('click', () => addToCart(item));
+
     }
-    
-    if (!menuButton || !cartButton) {
-        console.error('Menu button or Cart button not found in the DOM');
-        return;
-    }
+
    
 
-    // Event listeners
-    menuButton.addEventListener('click', () => {
-        console.log('Menu button clicked');
-        fetchMenu();
-    });
-    cartButton.addEventListener('click', () => {
-        console.log('Cart button clicked');
-        cartSection.classList.toggle('hidden'); // Toggle the "hidden" class
-        cartSection.scrollIntoView({ behavior: 'smooth' }); // Ensure visibility
-        showCart();
-    })
+    function addToCart(item) {
+ 
+      
+
+        const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    
+    if (existingItem) {
+        existingItem.quantity += 1; // Increment quantity if item already exists
+    } else {
+        // Add new item with quantity property
+        cart.push({ ...item, quantity: 1 });
+    }
+
+    updateCartCount();
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+       // const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      //  cartCountElement.textContent = totalItems; 
+        //cartCountElement.textContent = cart.length;
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountElement.textContent = totalItems;
+    }
+
+    fetchAndDisplayWontons();
 });

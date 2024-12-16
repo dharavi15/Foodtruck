@@ -1,0 +1,85 @@
+/* General styles */
+body {
+    background-color: #489078; 
+    margin: 0; /* Remove default margin to avoid white borders */
+    font-family: Arial, sans-serif; /* Consistent font across the page */
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Full viewport height */
+    padding: 1rem;
+}
+header {
+    background-color: #605858;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/*.cart-button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.cart-button svg {
+    width: 30px;
+    height: 30px;
+}*/
+
+/* Menu Container Styles */
+#menu-container {
+    background-color: #489078; /* Green background */
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Stack the menu items vertically */
+    gap: 1rem;
+    align-items: center;
+}
+
+#menu-container svg {
+    width: 100%;
+    cursor: pointer;
+    max-width: 360px; 
+}
+
+#menu-container svg:hover {
+    filter: brightness(1.2);
+    transition: filter 0.3s;
+}
+
+/* Cart Counter Badge */
+/*
+#cart-count {
+    background-color: #ff6347;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    line-height: 1;
+}
+*/
+/* Add hover effects to clickable rectangles */
+rect:hover {
+    fill: #8b8682;
+    transition: fill 0.3s;
+}
+

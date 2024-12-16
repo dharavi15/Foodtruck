@@ -3,41 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yum Yum Gim Me Sum</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
-    <link rel="stylesheet" href="cart.css">
-    <script src="script.js"></script>
+    <title>Menu</title>
+    <link rel="stylesheet" href="style1.css">
+ 
+    <script src="script.js" defer></script>
+    <script>
+        
+    </script>
+  
 </head>
 <body>
     <header class="header">
-        <h1>Yum Yum Gim Me Sum</h1>
-        <nav class="navbar">
-            <button class="menu-button">Menu</button>
-            <button class="cart-button">Cart (<span id="cart-count">0</span>)</button>
-        </nav>
-    </header>
-    
-    <main class="main-content">
-        <section class="welcome-section">
-            <h2>Welcome to Karlstad's Favorite Food Truck!</h2>
-            <p>Delicious wontons, refreshing drinks, and flavorful dips.</p>
-            <img src="foodtruck.jpeg" alt="Yum Yum Gim Me Sum Food Truck" class="foodtruck-image">
-            <pre id="output"></pre> 
-            
-        
+        <h1>Meny</h1>
+        <button class="cart-button" id="navigateToCartPage">(<span id="cart-count">0</span>)
+    <svg width="55" height="55" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <rect x="3" y="3" width="64" height="64" rx="8" fill="#F4F3F1" fill-opacity=".94"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M29.505 18a9 9 0 0 0-9 9v1.617H20a4 4 0 0 0-3.96 4.568l1.74 12.108a4 4 0 0 0 3.96 3.43h20.51a4 4 0 0 0 3.959-3.43l1.74-12.108a4 4 0 0 0-3.96-4.568h-.504V27a9 9 0 0 0-9-9h-4.981Zm11.981 10.617V27a7 7 0 0 0-7-7h-4.981a7 7 0 0 0-7 7v1.617h18.981Zm-21.485 2h23.99A2 2 0 0 1 45.97 32.9l-1.74 12.107a2 2 0 0 1-1.98 1.716H21.74a2 2 0 0 1-1.98-1.716l-1.739-12.107a2 2 0 0 1 1.98-2.284Z" fill="#353131"/>
+    </svg>
+</button>
+</header>
 
-            <section id="cart" >
-                <h2>Your Cart</h2>
-                <div id="cart-items-container"></div>
-                <p id="cart-total"></p>
-                <button id="checkout-button">Checkout</button>
-            </section>
-        </section>
-    </main>
-    <footer class="footer">
-        <p>&copy; 2024 Yum Yum Gim Me Sum. All rights reserved.</p>
-    </footer>
-    
+    <main>
+        <dialog id="errorDialog">
+            <p id="errorMessage">An error occurred.</p>
+            <button id="closeDialogButton">Close</button>
+        </dialog> 
+
+        <div id="menu-container">
+            <svg id="menu-svg1" data-label="Karlstad" width="358" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 8a8 8 0 0 1 8-8h342a8 8 0 0 1 8 8v81H0V8Z" fill="grey"/>
+            </svg>
+            <svg id="menu-svg2" data-label="Bangkok" width="358" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="358" height="89" fill="grey"/>
+            </svg>
+            <svg id="menu-svg3" data-label="Ho Chi Minh" width="358" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="358" height="89" fill="grey"/>
+            </svg>
+            <svg id="menu-svg4" data-label="Paris" width="358" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="358" height="89" fill="grey"/>
+            </svg>
+            <svg id="menu-svg5" data-label="Oaxaca" width="358" height="89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="358" height="89" fill="grey"/>
+            </svg>
+        </div>
+        
+                    
+<!--dipsås-->
+ <!-- Green outer box for Dip Item -->
+<div class="outer-box1">
+    <svg id="dip-item" data-label="Dipsås" width="358" height="165" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Rectangle -->
+        <rect id="dip-item-1" y=".199" width="358" height="164" rx="8" fill="grey"/>
+        <!-- Inner Rectangles -->
+        <rect id="dip-item-2" x="20" y="60" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="dip-item-3" x="132" y="60" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="dip-item-4" x="244" y="60" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="dip-item-5" x="20" y="110" width="105" height="33" rx="4" fill="#605858"/>
+        <rect id="dip-item-6" x="132" y="110" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="dip-item-7" x="244" y="110" width="92" height="33" rx="4" fill="#605858"/>
+    </svg>
+</div>
+<!-- Drinks-->
+<!-- Green outer box for Drink Item -->
+<div class="outer-box">
+    <svg id="drink-item" data-label="Drinks" width="358" height="165" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Rectangle -->
+        <rect id="drink-item-1" y=".199" width="358" height="164" rx="8" fill="grey"/>
+        <!-- Inner Rectangles -->
+        <rect id="drink-item-2" x="132" y="60" width="80" height="33" rx="4" fill="#605858"/>
+        <rect id="drink-item-3" x="20" y="60" width="100" height="33" rx="4" fill="#605858"/>
+        <rect id="drink-item-4" x="244" y="60" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="drink-item-5" x="20" y="110" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="drink-item-6" x="132" y="110" width="92" height="33" rx="4" fill="#605858"/>
+        <rect id="drink-item-7" x="244" y="110" width="110" height="33" rx="4" fill="#605858"/>
+    </svg>
+</div>
+
+</main> 
 </body>
 </html>
